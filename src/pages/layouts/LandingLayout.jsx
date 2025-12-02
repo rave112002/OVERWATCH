@@ -4,7 +4,7 @@ import {
   MailOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
-import { rbLogo } from "@assets/images";
+import { headerLogo } from "@assets/images";
 import { MODULES } from "@constants/menu";
 import { Button, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
@@ -44,65 +44,34 @@ const LandingLayout = () => {
   return (
     <Layout className="h-screen">
       <Header
-        className="bg-header h-16 px-12 items-center flex justify-between"
+        className="bg-linear-to-r from-[#00696e] from-0% to-b-primary to-100% opacity-85 h-16 px-12 items-center flex justify-between fixed w-full top-0"
         style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.3)", zIndex: 1 }}
       >
-        <div className=" w-full h-full items-center grid grid-cols-3 p-0">
-          <span className=""></span>
-          <span className=" text-xl text-center font-bold text-white text-shadow-md">
-            HEADER
-          </span>
-          <div className=" flex gap-4 justify-end">
-            <Button
-              type="text"
-              className="text-lg text-white font-semibold hover:bg-transparent!"
-            >
-              User
-            </Button>
-
-            <Button
-              type="text"
-              className="text-lg text-white font-semibold hover:bg-transparent!"
-            >
-              Logout
-            </Button>
-          </div>
+        <div className="flex gap-2 justify-between items-center w-full">
+          <img src={headerLogo} alt="Overwatch Logo" className="h-10" />
+          <div className="text-white text-base">Admin</div>
         </div>
       </Header>
-      <Layout>
+      <Content className="bg-white h-full w-full overflow-auto">
+        <Outlet />
+      </Content>
+      {/* <Layout>
         <Sider
           width={300}
           className=" bg-white h-full w-full overflow-auto border-r border-black/20"
           // style={{ boxShadow: "2px 0 8px rgba(0,0,0,0.15)", zIndex: 2 }}
         >
-          <div className="flex flex-col  items-center">
-            <div className=" text-center h-40 w-40 rounded-2xl justify-center items-center flex my-8">
-              <img src={rbLogo} alt="logo" className="w-full" />
-            </div>
-
-            {/* <Menu
-              defaultSelectedKeys={[selectedKey]}
-              // selectedKeys={[selectedKey]}
-              mode="inline"
-              inlineCollapsed={false}
-              items={items}
-            /> */}
-
-            <Menu
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
-              mode="inline"
-              // theme="dark"
-              inlineCollapsed={false}
-              items={menuItems}
-              className="p-0"
-            />
-          </div>
+          <Menu
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            // theme="dark"
+            inlineCollapsed={false}
+            items={menuItems}
+            className="p-0"
+          />
         </Sider>
-        <Content className="bg-white p-2 h-full w-full overflow-auto">
-          <Outlet />
-        </Content>
-      </Layout>
+      </Layout> */}
       {/* <Footer>Footer</Footer> */}
     </Layout>
   );

@@ -9,8 +9,8 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @theme {
-  --color-header: #308a4e;
-  /* --color-header: red; */
+  /* --color-header: #308a4e; */
+  --color-b-primary: #004aad;
 }
 
 /* Root styles */

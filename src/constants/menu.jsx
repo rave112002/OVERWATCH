@@ -3,8 +3,6 @@ import {
   CloudOutlined,
   GlobalOutlined,
 } from "@ant-design/icons";
-import Home from "@pages/Home";
-import SecondPage from "@pages/SecondPage";
 
 export const MODULES = [
   {
@@ -13,7 +11,7 @@ export const MODULES = [
     value: "dashboard",
     label: "Dashboard",
     link: "/admin/dashboard",
-    element: <Home />,
+    // element: <Home />,
   },
   {
     type: "item",
@@ -21,7 +19,7 @@ export const MODULES = [
     value: "second-page",
     label: "Second Page",
     link: "/admin/second-page",
-    element: <SecondPage />,
+    // element: <SecondPage />,
   },
   //   {
   //     type: "group",

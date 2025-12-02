@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import LandingLayout from "@pages/layouts/LandingLayout";
-import Login from "@pages/Login";
-import Home from "@pages/Home";
-import SecondPage from "@pages/SecondPage";
+// import Login from "@pages/Login";
 import { MODULES } from "@constants/menu";
+import Public from "@pages/Public";
 
 const NotFound = () => (
   <div className="h-dvh bg-header flex flex-col items-center justify-center">
@@ -37,14 +36,18 @@ const Routers = () => {
   return (
     <Routes>
       {/* Default route */}
-      <Route path="/" element={<Login />} />
+      {/* <Route path="/" element={<Public />} /> */}
+
+      <Route element={<LandingLayout />}>
+        <Route path="/" element={<Public />} />
+      </Route>
 
       {/* Admin route inside layout */}
-      <Route element={<LandingLayout />}>
+      {/* <Route element={<LandingLayout />}>
         {routes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
-      </Route>
+      </Route> */}
 
       {/* Catch-all 404 with redirect */}
       <Route path="*" element={<NotFound />} />
