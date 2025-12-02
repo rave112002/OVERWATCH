@@ -20,7 +20,4 @@ export default defineConfig({
       "@images": "/src/assets/images",
     },
   },
-  server: {
-    historyApiFallback: true,
-  },
 });
