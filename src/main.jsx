@@ -29,19 +29,16 @@ createRoot(document.getElementById("root")).render(
             fontFamily: "Poppins, sans-serif",
           },
           components: {
-            // Input: {
-            //   colorBorder: "#d1d5db",
-            //   colorBorderHover: "#308a4e",
-            //   colorPrimaryHover: "#308a4e",
-            //   activeBorderColor: "#308a4e",
-            //   activeShadow: "0 0 0 2px rgba(48,138,78,0.3)",
-            // },
-            // Menu: {
-            //   colorBgContainer: "#ffffff",
-            //   itemSelectedBg: "#d4edda", // light green background
-            //   itemSelectedColor: "#0f5132", // dark green text
-            //   itemMarginInline: 10, // removes the left/right gaps
-            // },
+            Menu: {
+              colorBgContainer: "#ffffff",
+              itemSelectedBg: "rgba(0, 74, 173, 0.5)",
+              itemSelectedColor: "#ffffff",
+              itemMarginInline: 5,
+              // collapsedWidth: 10,
+            },
+            Radio: {
+              colorPrimary: "rgb(0, 74, 173, 0.3)",
+            },
           },
         }}
       >

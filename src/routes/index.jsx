@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import LandingLayout from "@pages/layouts/LandingLayout";
 // import Login from "@pages/Login";
-import { MODULES } from "@constants/menu";
+import { ADMIN_MODULES } from "@constants/menu";
 import Public from "@pages/Public";
 
 const NotFound = () => (
@@ -30,24 +30,24 @@ const extractRoutes = (modules) => {
   return routes;
 };
 
-const routes = extractRoutes(MODULES);
+const routes = extractRoutes(ADMIN_MODULES);
 
 const Routers = () => {
   return (
     <Routes>
-      {/* Default route */}
       {/* <Route path="/" element={<Public />} /> */}
 
+      {/* Default route */}
       <Route element={<LandingLayout />}>
         <Route path="/" element={<Public />} />
       </Route>
 
       {/* Admin route inside layout */}
-      {/* <Route element={<LandingLayout />}>
+      <Route element={<LandingLayout admin={true} />}>
         {routes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
-      </Route> */}
+      </Route>
 
       {/* Catch-all 404 with redirect */}
       <Route path="*" element={<NotFound />} />

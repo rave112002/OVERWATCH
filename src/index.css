@@ -11,6 +11,7 @@
 @theme {
   /* --color-header: #308a4e; */
   --color-b-primary: #004aad;
+  --color-b-secondary: #00696e:
 }
 
 /* Root styles */
@@ -33,3 +34,92 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* andtD sider */
+.custom-admin-sider {
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+}
+
+/* antD menu style */
+.custom-admin-menu .ant-menu-item,
+.custom-admin-menu .ant-menu-submenu-title {
+  display: flex;
+  align-items: center;
+}
+
+.custom-admin-menu .ant-menu-item .anticon,
+.custom-admin-menu .ant-menu-submenu-title .anticon,
+.custom-admin-menu .ant-menu-item svg,
+.custom-admin-menu .ant-menu-submenu-title svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2px; /* space between icon and text */
+  min-width: 22px;
+  min-height: 22px;
+}
+
+/* basemap control */
+.maplibregl-ctrl-top-right {
+  top: 4.5rem !important;         /* Custom vertical offset */
+  right: 0.5rem !important;       /* Custom horizontal offset */
+  bottom: auto !important;
+  left: auto !important;
+}
+
+.maplibregl-ctrl-top-right .maplibregl-ctrl,
+.maplibregl-ctrl-top-right .maplibregl-ctrl-group {
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 1px 2px 0 rgba(0,0,0,0.05); /* ring + shadow */
+  z-index: 10;
+  padding: 0.5rem;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Optional: remove default background */
+  background-clip: padding-box;
+  
+}
+
+/* map options control */
+.vertical-radio-group .ant-radio-button-wrapper {
+  display: block;
+  width: 100%;
+  border-radius: 0px !important;  /* Force no rounded corners */
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+  border: none !important;  /* Remove individual button borders */
+  margin: 0 !important;  /* Remove any margins */
+}
+
+.vertical-radio-group .ant-radio-button-wrapper:first-child {
+  border-radius: 0px !important;
+  border: none !important;
+}
+
+.vertical-radio-group .ant-radio-button-wrapper:last-child {
+  border-radius: 0px !important;
+  border: none !important;
+}
+
+.vertical-radio-group .ant-radio-button-wrapper:not(:first-child)::before {
+  display: none !important;  /* This removes the connecting line between buttons */
+}
+
+.vertical-radio-group .ant-radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  gap: 0 !important;  /* Remove any gaps between buttons */
+}
+

@@ -5,33 +5,49 @@ import {
   PieChartOutlined,
 } from "@ant-design/icons";
 import { headerLogo } from "@assets/images";
-import { MODULES } from "@constants/menu";
+import { ADMIN_MODULES } from "@constants/menu";
 import { Button, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-import React from "react";
-import { Link, Outlet } from "react-router";
+import Item from "antd/es/list/Item";
+import React, { useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
-const LandingLayout = () => {
+const LandingLayout = ({ admin = false }) => {
+  const [collapsed, setCollapsed] = useState(true);
+  const navigate = useNavigate();
+
   const extractMenu = (modules) => {
     let items = [];
     modules.forEach((module) => {
       if (module.type === "group" && Array.isArray(module.children)) {
         const children = module.children.map((child) => ({
           key: child.value,
-          icon: child.icon,
+          icon: child.icon ? (
+            <span className="flex items-center justify-center">
+              {child.icon}
+            </span>
+          ) : null,
           label: <Link to={child.link}>{child.label}</Link>,
         }));
         items.push({
           key: module.value,
-          icon: module.icon,
+          icon: module.icon ? (
+            <span className="flex items-center justify-center">
+              {module.icon}
+            </span>
+          ) : null,
           label: module.label,
           children: children,
         });
       } else if (module.type === "item") {
         items.push({
           key: module.value,
-          icon: module.icon,
+          icon: module.icon ? (
+            <span className="flex items-center justify-center">
+              {module.icon}
+            </span>
+          ) : null,
           label: <Link to={module.link}>{module.label}</Link>,
         });
       }
@@ -39,22 +55,47 @@ const LandingLayout = () => {
     return items;
   };
 
-  const menuItems = extractMenu(MODULES);
+  const menuItems = extractMenu(ADMIN_MODULES);
 
   return (
     <Layout className="h-screen">
       <Header
-        className="bg-linear-to-r from-[#00696e] from-0% to-b-primary to-100% opacity-85 h-16 px-12 items-center flex justify-between fixed w-full top-0"
+        className="bg-linear-to-r from-[#00696e] from-0% to-b-primary to-60% opacity-80 h-16 px-12 items-center flex justify-between fixed w-full top-0"
         style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.3)", zIndex: 1 }}
       >
         <div className="flex gap-2 justify-between items-center w-full">
-          <img src={headerLogo} alt="Overwatch Logo" className="h-10" />
-          <div className="text-white text-base">Admin</div>
+          <img src={headerLogo} alt="Overwatch Logo" className="h-12" />
+          {/* {admin && <div className="text-white text-base">Admin</div>} */}
+          <Button type="link" onClick={() => navigate("/admin/dashboard")}>
+            <span className="text-lg text-white/90 font-medium hover:text-gray-300">
+              Admin
+            </span>
+          </Button>
         </div>
       </Header>
-      <Content className="bg-white h-full w-full overflow-auto">
+      <Content className="bg-linear-to-r from-[#00696e] from-0% to-b-primary to-60% h-full w-full overflow-auto">
         <Outlet />
       </Content>
+      {admin && (
+        <Sider
+          width={330}
+          collapsible
+          collapsed={collapsed}
+          trigger={null}
+          onMouseEnter={() => setCollapsed(false)}
+          onMouseLeave={() => setCollapsed(true)}
+          className="custom-admin-sider overflow-hidden fixed left-4 top-20 bg-white/40 backdrop-blur-sm ring ring-white/10 rounded-lg shadow-xl"
+          style={{ padding: 0 }}
+        >
+          <Menu
+            defaultSelectedKeys={["risk-intelligence"]}
+            mode="vertical"
+            inlineCollapsed={collapsed}
+            items={menuItems}
+            className="custom-admin-menu bg-transparent font-medium text-base"
+          />
+        </Sider>
+      )}
       {/* <Layout>
         <Sider
           width={300}
