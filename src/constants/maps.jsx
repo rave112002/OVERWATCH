@@ -1,5 +1,6 @@
 const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY;
 const JAWG_KEY = import.meta.env.VITE_JAWG_KEY;
+import { Tooltip } from "antd";
 import { MoonIcon, Satellite, Sun } from "lucide-react";
 
 export const MAP_STYLES = {
@@ -11,25 +12,43 @@ export const MAP_STYLES = {
 export const MAP_OPTIONS = [
   {
     label: (
-      <span className="flex items-center h-full">
-        <Sun size={20} />
-      </span>
+      <Tooltip
+        placement="left"
+        title={"Light Mode"}
+        styles={{ arrow: { marginRight: 10 } }}
+      >
+        <span className="flex items-center h-full">
+          <Sun size={20} />
+        </span>
+      </Tooltip>
     ),
     value: "light",
   },
   {
     label: (
-      <span className="flex items-center h-full">
-        <MoonIcon size={20} />
-      </span>
+      <Tooltip
+        placement="left"
+        title={"Dark Mode"}
+        styles={{ arrow: { marginRight: 10 } }}
+      >
+        <span className="flex items-center h-full">
+          <MoonIcon size={20} />
+        </span>
+      </Tooltip>
     ),
     value: "dark",
   },
   {
     label: (
-      <span className="flex items-center h-full">
-        <Satellite size={20} />
-      </span>
+      <Tooltip
+        placement="left"
+        title={"Satellite"}
+        styles={{ arrow: { marginRight: 10 } }}
+      >
+        <span className="flex items-center h-full">
+          <Satellite size={20} />
+        </span>
+      </Tooltip>
     ),
     value: "satellite",
   },

@@ -10,12 +10,19 @@ import { Button, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import Item from "antd/es/list/Item";
-import React, { useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const LandingLayout = ({ admin = false }) => {
   const [collapsed, setCollapsed] = useState(true);
+  const [selectedKey, setSelectedKey] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const pathName = location.pathname.split("/").pop();
+    setSelectedKey(pathName);
+  }, [location.pathname]);
 
   const extractMenu = (modules) => {
     let items = [];
@@ -88,7 +95,8 @@ const LandingLayout = ({ admin = false }) => {
           style={{ padding: 0 }}
         >
           <Menu
-            defaultSelectedKeys={["risk-intelligence"]}
+            defaultSelectedKeys={[selectedKey]}
+            selectedKeys={[selectedKey]}
             mode="vertical"
             inlineCollapsed={collapsed}
             items={menuItems}

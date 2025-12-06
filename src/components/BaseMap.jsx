@@ -198,27 +198,27 @@ const BaseMap = ({
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (mapInstance.current) {
-  //     const map = mapInstance.current;
+  useEffect(() => {
+    if (mapInstance.current) {
+      const map = mapInstance.current;
 
-  //     const logZoom = () => {
-  //       console.log("Zoom level:", map.getZoom());
-  //     };
+      const logZoom = () => {
+        console.log("Zoom level:", map.getZoom());
+      };
 
-  //     map.on("zoom", logZoom);
+      map.on("zoom", logZoom);
 
-  //     // Cleanup
-  //     return () => {
-  //       map.off("zoom", logZoom);
-  //     };
-  //   }
-  // }, []);
+      // Cleanup
+      return () => {
+        map.off("zoom", logZoom);
+      };
+    }
+  }, []);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
-      <div className="absolute top-48 right-4 flex flex-col gap-2">
+      <div className="absolute top-50 right-4 flex flex-col gap-2 shadow-lg rounded-lg">
         <div className="rounded-lg overflow-hidden bg-transparent">
           <Radio.Group
             options={MAP_OPTIONS}
