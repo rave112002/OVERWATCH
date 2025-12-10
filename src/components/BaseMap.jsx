@@ -175,7 +175,7 @@ const BaseMap = ({
         map.setLayoutProperty(
           "taguig-border",
           "visibility",
-          zoom > 8 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none"
         );
       }
 
@@ -184,7 +184,7 @@ const BaseMap = ({
         map.setLayoutProperty(
           "taguig-fill",
           "visibility",
-          zoom > 8 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none"
         );
       }
     };
