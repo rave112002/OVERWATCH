@@ -22,7 +22,7 @@ const Public = () => {
     >
       <div className="w-full h-full px-10 py-6 flex gap-6 justify-between text-white">
         <div className="w-2/5 flex flex-col gap-6 ">
-          <TranslucentCard className="w-full">
+          <TranslucentCard className="w-full p-6">
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold text-shadow-lg">
                 Current Weather in Taguig City
@@ -64,7 +64,7 @@ const Public = () => {
             </div>
           </TranslucentCard>
 
-          <TranslucentCard className="w-full">
+          <TranslucentCard className="w-full p-6">
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold text-shadow-lg">
                 Weather System Affecting Taguig City
@@ -77,7 +77,7 @@ const Public = () => {
             </div>
           </TranslucentCard>
 
-          <TranslucentCard className="w-full">
+          <TranslucentCard className="w-full p-6">
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold text-shadow-lg">
                 Advisories / Warnings
@@ -89,21 +89,13 @@ const Public = () => {
           </TranslucentCard>
         </div>
         <div className="w-3/5 flex flex-col min-h-0">
-          <TranslucentCard className="w-full h-full">
+          <TranslucentCard className="w-full h-full p-6">
             <div className="flex flex-col gap-4 h-full">
               <div className="w-full h-fit flex flex-col gap-2">
                 <span className="text-xl font-semibold text-shadow-lg">
                   12-Hourly Weather Forecast in Taguig City
                 </span>
                 <div className="w-full h-full flex gap-2 overflow-x-auto">
-                  {/* <center className="w-36 h-full bg-white/80 text-gray-900 text-base rounded-2xl p-4 gap-1 flex flex-col items-center mb-auto">
-                    <span>4PM</span>
-                    <ShowersLine className="w-18 h-18 text-gray-500" />
-                    <span>Rain</span>
-                    <span className="mt-2 text-blue-500">45%</span>
-                    <span className="text-blue-500">19mm</span>
-                    <span className="">33° 24 km/h</span>
-                  </center> */}
                   {HOURLY_FORECAST.map((forecast, index) => (
                     <ForecastCard
                       key={index}
