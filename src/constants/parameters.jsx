@@ -13,53 +13,53 @@ import {
 
 export const PARAMETERS = [
   {
-    key: "1",
+    key: "weather",
     label: "Weather",
-    icon: <CloudSun />,
+    icon: CloudSun,
   },
   {
-    key: "2",
+    key: "rain",
     label: "Rain",
-    icon: <CloudRain />,
+    icon: CloudRain,
   },
   {
-    key: "3",
+    key: "heat-index",
     label: "Heat Index",
-    icon: <ThermometerSun />,
+    icon: ThermometerSun,
   },
   {
-    key: "4",
+    key: "temperature",
     label: "Temperature",
-    icon: <Thermometer />,
+    icon: Thermometer,
   },
   {
-    key: "5",
+    key: "wind-speed",
     label: "Wind Speed",
-    icon: <Wind />,
+    icon: Wind,
   },
   {
-    key: "6",
+    key: "wind-gust",
     label: "Wind Gust",
-    icon: <Waves />,
+    icon: Waves,
   },
   {
-    key: "7",
+    key: "wind-direction",
     label: "Wind Direction",
-    icon: <Navigation />,
+    icon: Navigation,
   },
   {
-    key: "8",
+    key: "pm",
     label: "PM 2.5",
-    icon: <Gauge />,
+    icon: Gauge,
   },
   {
-    key: "9",
+    key: "elevation",
     label: "Elevation",
-    icon: <Mountain />,
+    icon: Mountain,
   },
   {
-    key: "1",
+    key: "tropical-cyclone",
     label: "Tropical Cyclone",
-    icon: <Fan />,
+    icon: Fan,
   },
 ];
