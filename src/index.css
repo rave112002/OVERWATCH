@@ -68,6 +68,9 @@ body {
   bottom: auto !important;
   left: auto !important;
 }
+.mapboxgl-canvas {
+  pointer-events: auto;
+}
 
 .maplibregl-ctrl-top-right .maplibregl-ctrl,
 .maplibregl-ctrl-top-right .maplibregl-ctrl-group {
