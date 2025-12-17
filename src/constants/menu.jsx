@@ -1,5 +1,6 @@
 import Dashboard from "@pages/admin/Dashboard";
 import RiskIntelligence from "@pages/admin/RiskIntelligence";
+import TestMap from "@pages/admin/TestMap";
 import {
   ActivityIcon,
   Bell,
@@ -76,6 +77,15 @@ export const ADMIN_MODULES = [
     label: "System Administration",
     link: "/admin/system-administration",
     // element: <SecondPage />,
+  },
+
+  {
+    type: "item",
+    icon: <ActivityIcon />,
+    value: "test-map",
+    label: "Test Map",
+    link: "/admin/test-map",
+    element: <TestMap />,
   },
   // {
   //   type: "group",

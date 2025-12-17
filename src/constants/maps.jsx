@@ -52,3 +52,30 @@ export const MAP_OPTIONS = [
     value: "satellite",
   },
 ];
+
+export const MAP_VIEW_MODES = [
+  {
+    label: (
+      <Tooltip
+        placement="left"
+        title={"2D"}
+        styles={{ arrow: { marginRight: 10 } }}
+      >
+        <span className="flex items-center h-full font-semibold">2D</span>
+      </Tooltip>
+    ),
+    value: "2d",
+  },
+  {
+    label: (
+      <Tooltip
+        placement="left"
+        title={"3D"}
+        styles={{ arrow: { marginRight: 10 } }}
+      >
+        <span className="flex items-center h-full font-semibold">3D</span>
+      </Tooltip>
+    ),
+    value: "3d",
+  },
+];
