@@ -63,8 +63,8 @@ body {
 
 /* basemap control */
 .maplibregl-ctrl-top-right {
-  top: 4.5rem !important;         /* Custom vertical offset */
-  right: 0.5rem !important;       /* Custom horizontal offset */
+  top: 4.5rem !important;        
+  right: 0.5rem !important;       
   bottom: auto !important;
   left: auto !important;
 }
@@ -74,7 +74,7 @@ body {
   background: rgba(255,255,255,0.4);
   backdrop-filter: blur(8px);
   border-radius: 0.5rem;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 1px 2px 0 rgba(0,0,0,0.05); /* ring + shadow */
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 1px 2px 0 rgba(0,0,0,0.05);
   z-index: 10;
   padding: 0.5rem;
   width: 50px;
@@ -82,20 +82,18 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Optional: remove default background */
   background-clip: padding-box;
-  
 }
 
 /* map options control */
 .vertical-radio-group .ant-radio-button-wrapper {
   display: block;
   width: 100%;
-  border-radius: 0px !important;  /* Force no rounded corners */
+  border-radius: 0px !important;  
   background: rgba(255,255,255,0.4);
-  backdrop-filter: blur(8px);
-  border: none !important;  /* Remove individual button borders */
-  margin: 0 !important;  /* Remove any margins */
+  backdrop-filter: blur(6px);
+  border: none !important;
+  margin: 0 !important;
 }
 
 .vertical-radio-group .ant-radio-button-wrapper:first-child {
@@ -109,7 +107,7 @@ body {
 }
 
 .vertical-radio-group .ant-radio-button-wrapper:not(:first-child)::before {
-  display: none !important;  /* This removes the connecting line between buttons */
+  display: none !important;  
 }
 
 .vertical-radio-group .ant-radio-group {

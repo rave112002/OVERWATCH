@@ -1,5 +1,4 @@
 const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY;
-const JAWG_KEY = import.meta.env.VITE_JAWG_KEY;
 import { Tooltip } from "antd";
 import { MoonIcon, Satellite, Sun } from "lucide-react";
 
