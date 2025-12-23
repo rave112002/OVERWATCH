@@ -73,6 +73,24 @@ const TestMap = () => {
           elevation: data.elevation[0],
           locationName: location.name,
         });
+      } else if (parameter === "heat-index") {
+        // 🔥 HEAT INDEX - Fetch for selected barangay or city center
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m&timezone=Asia/Manila`
+        );
+        const data = await response.json();
+
+        const temp = data.current.temperature_2m;
+        const humidity = data.current.relative_humidity_2m;
+        const heatIndex = parseFloat(calculateHeatIndex(temp, humidity));
+
+        setParameterData({
+          type: "heat-index",
+          temperature: temp,
+          humidity: humidity,
+          heatIndex: heatIndex,
+          locationName: location.name,
+        });
       } else {
         const response = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Asia/Manila`
@@ -316,6 +334,7 @@ const TestMap = () => {
         onMapLoad={(map) => {
           mapRef.current = map;
         }}
+        selectedParameter={selectedParameter}
         onBarangayClick={handleBarangayClick}
         selectedBarangay={selectedBarangay}
         enableBarangayHighlight={true}
