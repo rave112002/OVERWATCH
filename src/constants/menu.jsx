@@ -1,4 +1,6 @@
 import Dashboard from "@pages/admin/Dashboard";
+import Himawari from "@pages/admin/Himawari";
+import RainRadar from "@pages/admin/RainRadar";
 import RiskIntelligence from "@pages/admin/RiskIntelligence";
 import TestMap from "@pages/admin/TestMap";
 import {
@@ -9,6 +11,7 @@ import {
   CloudRainWindIcon,
   LayoutDashboard,
   Nfc,
+  Satellite,
   Server,
   Settings2,
 } from "lucide-react";
@@ -33,10 +36,10 @@ export const ADMIN_MODULES = [
   {
     type: "item",
     icon: <CloudRainWindIcon />,
-    value: "tropical-cyclone-intelligense",
-    label: "Tropical Cyclone Intelligense",
-    link: "/admin/tropical-cyclone-intelligense",
-    // element: <TropicalCycloneIntelligense />,
+    value: "tropical-cyclone-intelligence",
+    label: "Tropical Cyclone Intelligence",
+    link: "/admin/tropical-cyclone-intelligence",
+    // element: <TropicalCycloneIntelligence />,
   },
   {
     type: "item",
@@ -86,6 +89,22 @@ export const ADMIN_MODULES = [
     label: "Test Map",
     link: "/admin/test-map",
     element: <TestMap />,
+  },
+  {
+    type: "item",
+    icon: <Satellite />,
+    value: "rain-radar",
+    label: "Rain Radar",
+    link: "/admin/rain-radar",
+    element: <RainRadar />,
+  },
+  {
+    type: "item",
+    icon: <Satellite />,
+    value: "himawari",
+    label: "Himawari",
+    link: "/admin/himawari",
+    element: <Himawari />,
   },
   // {
   //   type: "group",

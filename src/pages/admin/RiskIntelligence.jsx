@@ -18,6 +18,7 @@ import {
 } from "@maptiler/weather";
 import { useMapStyle } from "@helpers/useMapStyle";
 import TranslucentCard from "@components/cards/TranslucentCard";
+import BaseMapLibre from "@components/BaseMapLibre";
 
 const RiskIntelligence = () => {
   const mapRef = useRef(null);
@@ -96,7 +97,7 @@ const RiskIntelligence = () => {
 
   return (
     <div className="w-full h-full relative">
-      <BaseMaptiler center={[121, 14.6]} zoom={4} onMapLoad={onMapLoad} />
+      <BaseMapLibre center={[121, 14.6]} zoom={4} onMapLoad={onMapLoad} />
 
       <div className="absolute top-95 right-4 bg-white/40 rounded-lg">
         <TranslucentCard className="p-0">
