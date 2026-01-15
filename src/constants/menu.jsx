@@ -1,6 +1,7 @@
 import Dashboard from "@pages/admin/Dashboard";
 import RiskIntelligence from "@pages/admin/RiskIntelligence";
 import TestMap from "@pages/admin/TestMap";
+import TropicalCycloneIntelligence from "@pages/admin/TropicalCycloneIntelligence";
 import {
   ActivityIcon,
   Bell,
@@ -33,10 +34,10 @@ export const ADMIN_MODULES = [
   {
     type: "item",
     icon: <CloudRainWindIcon />,
-    value: "tropical-cyclone-intelligense",
-    label: "Tropical Cyclone Intelligense",
-    link: "/admin/tropical-cyclone-intelligense",
-    // element: <TropicalCycloneIntelligense />,
+    value: "tropical-cyclone-intelligence",
+    label: "Tropical Cyclone Intelligence",
+    link: "/admin/tropical-cyclone-intelligence",
+    element: <TropicalCycloneIntelligence />,
   },
   {
     type: "item",

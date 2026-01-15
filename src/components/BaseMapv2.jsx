@@ -11,9 +11,13 @@ const BaseMapv2 = memo(
     zoom = 12,
     onMapLoad,
     onBarangayClick,
+
+    enableBarangays = true,
+    enableAutoFitBounds = true,
+    enableBarangayHighlight = true,
+
     selectedBarangay = null,
     selectedParameter,
-    enableBarangayHighlight = true,
     children,
   }) => {
     const mapContainer = useRef(null);
@@ -27,25 +31,58 @@ const BaseMapv2 = memo(
     const [mapViewMode, setMapViewMode] = useState("2d");
     const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-    const applyCurrentParameterStyle = () => {
+    const applyVisualState = () => {
       const map = mapRef.current;
       if (!map || !map.getLayer("taguig-fill")) return;
 
+      const psgc = selectedBarangay?.psgc ?? null;
+
+      /* ───── HEIGHT (3D) ───── */
+      if (mapViewMode !== "3d") {
+        map.setPaintProperty("taguig-fill", "fill-extrusion-height", 0);
+      } else if (psgc) {
+        map.setPaintProperty("taguig-fill", "fill-extrusion-height", [
+          "case",
+          ["==", ["get", "adm4_psgc"], psgc],
+          500,
+          0,
+        ]);
+      } else {
+        map.setPaintProperty("taguig-fill", "fill-extrusion-height", 500);
+      }
+
+      /* ───── COLOR (HEAT INDEX) ───── */
       if (selectedParameter === "heat-index") {
         map.setPaintProperty("taguig-fill", "fill-extrusion-color", [
           "step",
           ["get", "heat_index"],
-          "#22C55E",
+          "#A3A3A3", // < 27°C: Not Hazardous (Gray)
           27,
-          "#EAB308",
+          "#FDE047", // 27-32°C: Caution (Yellow)
           32,
-          "#F97316",
+          "#FCD34D", // 32-41°C: Extreme Caution (Amber)
           41,
-          "#DC2626",
+          "#F97316", // 41-54°C: Danger (Orange)
           54,
-          "#7F1D1D",
+          "#B91C1C", // ≥54°C: Extreme Danger (Red)
         ]);
         map.setPaintProperty("taguig-fill", "fill-extrusion-opacity", 0.7);
+      } else if (psgc) {
+        map.setPaintProperty("taguig-fill", "fill-extrusion-color", [
+          "case",
+          ["==", ["get", "adm4_psgc"], psgc],
+          "#B20000",
+          "#004aad",
+        ]);
+        map.setPaintProperty("taguig-fill", "fill-extrusion-opacity", [
+          "case",
+          ["==", ["get", "adm4_psgc"], psgc],
+          1,
+          0.25,
+        ]);
+      } else {
+        map.setPaintProperty("taguig-fill", "fill-extrusion-color", "#004aad");
+        map.setPaintProperty("taguig-fill", "fill-extrusion-opacity", 0.3);
       }
     };
 
@@ -85,139 +122,160 @@ const BaseMapv2 = memo(
       const map = mapRef.current;
       if (!map) return;
 
-      try {
-        const response = await fetch("/data/taguig.geojson");
-        const geojson = await response.json();
+      /* ───────────────────── BARANGAYS ───────────────────── */
+      if (enableBarangays) {
+        try {
+          const response = await fetch("/data/taguig.geojson");
+          const geojson = await response.json();
 
-        // 🔥 FETCH HEAT INDEX FOR ALL BARANGAYS
-        console.log("Loading heat index data for all barangays...");
+          const featuresWithHeat = await Promise.all(
+            geojson.features.map(async (feature) => {
+              const coords =
+                feature.geometry.type === "Polygon"
+                  ? feature.geometry.coordinates[0]
+                  : feature.geometry.coordinates[0][0];
 
-        const featuresWithHeat = await Promise.all(
-          geojson.features.map(async (feature) => {
-            let coords =
-              feature.geometry.type === "Polygon"
-                ? feature.geometry.coordinates[0]
-                : feature.geometry.coordinates[0][0];
+              let lonSum = 0,
+                latSum = 0;
+              coords.forEach(([lon, lat]) => {
+                lonSum += lon;
+                latSum += lat;
+              });
 
-            let lonSum = 0,
-              latSum = 0;
-            coords.forEach(([lon, lat]) => {
-              lonSum += lon;
-              latSum += lat;
+              const centroidLon = lonSum / coords.length;
+              const centroidLat = latSum / coords.length;
+
+              try {
+                const data = await getHeatIndexDataApi(
+                  centroidLat,
+                  centroidLon,
+                  feature.properties.adm4_en || "Unknown"
+                );
+
+                return {
+                  ...feature,
+                  properties: {
+                    ...feature.properties,
+                    heat_index: data.heatIndex,
+                    heat_color: data.color,
+                    heat_category: data.category,
+                    heat_temp: data.temperature,
+                    heat_humidity: data.humidity,
+                  },
+                };
+              } catch {
+                return {
+                  ...feature,
+                  properties: {
+                    ...feature.properties,
+                    heat_index: 27,
+                    heat_color: "#22C55E",
+                    heat_category: "Normal",
+                    heat_temp: 25,
+                    heat_humidity: 50,
+                  },
+                };
+              }
+            })
+          );
+
+          geojson.features = featuresWithHeat;
+          geoJSONRef.current = geojson;
+          heatIndexLoadedRef.current = true;
+
+          if (!map.getSource("taguig")) {
+            map.addSource("taguig", {
+              type: "geojson",
+              data: geojson,
             });
+          }
 
-            const centroidLon = lonSum / coords.length;
-            const centroidLat = latSum / coords.length;
+          if (!map.getLayer("taguig-fill")) {
+            map.addLayer({
+              id: "taguig-fill",
+              type: "fill-extrusion",
+              source: "taguig",
+              paint: {
+                "fill-extrusion-color": "#004aad",
+                "fill-extrusion-opacity": 0.3,
+                "fill-extrusion-height": 0,
+              },
+            });
+          }
 
-            try {
-              const data = await getHeatIndexDataApi(
-                centroidLat,
-                centroidLon,
-                feature.properties.adm4_en || "Unknown"
-              );
+          if (!map.getLayer("taguig-border")) {
+            map.addLayer({
+              id: "taguig-border",
+              type: "line",
+              source: "taguig",
+              paint: {
+                "line-color": "#ffffff",
+                "line-width": 2,
+              },
+            });
+          }
 
-              // Store heat index data in properties
-              return {
-                ...feature,
-                properties: {
-                  ...feature.properties,
-                  heat_index: data.heatIndex,
-                  heat_color: data.color,
-                  heat_category: data.category,
-                  heat_temp: data.temperature,
-                  heat_humidity: data.humidity,
-                },
-              };
-            } catch (e) {
-              console.error(
-                `Heat index fetch failed for ${feature.properties.adm4_en}:`,
-                e
-              );
-              // Fallback values
-              return {
-                ...feature,
-                properties: {
-                  ...feature.properties,
-                  heat_index: 27,
-                  heat_color: "#22C55E",
-                  heat_category: "Normal",
-                  heat_temp: 25,
-                  heat_humidity: 50,
-                },
-              };
-            }
-          })
-        );
+          if (!map.getLayer("taguig-label")) {
+            map.addLayer({
+              id: "taguig-label",
+              type: "symbol",
+              source: "taguig",
+              layout: {
+                "text-field": ["get", "adm4_en"],
+                "text-size": 12,
+              },
+              paint: {
+                "text-color": "#000",
+                "text-halo-color": "#fff",
+                "text-halo-width": 2,
+              },
+            });
+          }
 
-        geojson.features = featuresWithHeat;
-        geoJSONRef.current = geojson;
-        heatIndexLoadedRef.current = true;
+          setupClickHandler();
 
-        console.log("Heat index data loaded for all barangays");
-        console.log("Sample data:", geojson.features[0]?.properties);
+          if (enableAutoFitBounds && !hasFitBoundsRef.current) {
+            fitToBounds(geojson);
+            hasFitBoundsRef.current = true;
+          }
+        } catch (err) {
+          console.error("Failed to load barangay layers:", err);
+        }
+      }
 
-        // Add source
-        if (!map.getSource("taguig")) {
-          map.addSource("taguig", {
+      /* ───────────────────── PAR (ALWAYS LOAD) ───────────────────── */
+      try {
+        const parRes = await fetch("/data/par.geojson");
+        const parGeoJSON = await parRes.json();
+
+        if (!map.getSource("par")) {
+          map.addSource("par", {
             type: "geojson",
-            data: geojson,
+            data: parGeoJSON,
           });
         }
 
-        // Add fill-extrusion layer
-        if (!map.getLayer("taguig-fill")) {
+        if (!map.getLayer("par-border")) {
           map.addLayer({
-            id: "taguig-fill",
-            type: "fill-extrusion",
-            source: "taguig",
-            paint: {
-              "fill-extrusion-color": "#004aad",
-              "fill-extrusion-opacity": 0.3,
-              "fill-extrusion-height": 0,
-            },
-          });
-        }
-
-        // Border layer
-        if (!map.getLayer("taguig-border")) {
-          map.addLayer({
-            id: "taguig-border",
+            id: "par-border",
             type: "line",
-            source: "taguig",
+            source: "par",
+            filter: ["==", ["geometry-type"], "Polygon"],
             paint: {
-              "line-color": "#ffffff",
-              "line-width": 2,
+              "line-color": "#808080",
+              "line-width": 2.5,
+              "line-dasharray": [2, 2],
             },
           });
         }
 
-        // Label layer
-        if (!map.getLayer("taguig-label")) {
-          map.addLayer({
-            id: "taguig-label",
-            type: "symbol",
-            source: "taguig",
-            layout: {
-              "text-field": ["get", "adm4_en"],
-              "text-size": 12,
-            },
-            paint: {
-              "text-color": "#000",
-              "text-halo-color": "#fff",
-              "text-halo-width": 2,
-            },
-          });
-        }
-
-        setupClickHandler();
-
-        // Auto-zoom once
-        if (!hasFitBoundsRef.current) {
-          fitToBounds(geojson);
-          hasFitBoundsRef.current = true;
+        // Keep PAR below barangays (if barangays exist)
+        if (map.getLayer("taguig-fill")) {
+          map.moveLayer("par-fill", "taguig-fill");
+          map.moveLayer("par-border", "taguig-fill");
         }
       } catch (err) {
-        console.error("Failed to load layers:", err);
+        console.error("Failed to load PAR GeoJSON:", err);
       }
     };
 
@@ -268,6 +326,7 @@ const BaseMapv2 = memo(
     /* ───────────────────────── HIGHLIGHT EFFECT ───────────────────────── */
     useEffect(() => {
       if (!mapRef.current || !isMapLoaded) return;
+      if (!enableBarangays) return;
 
       const map = mapRef.current;
       const layer = "taguig-fill";
@@ -361,13 +420,8 @@ const BaseMapv2 = memo(
     useEffect(() => {
       if (!mapRef.current || !isMapLoaded || selectedBarangay) return;
 
-      const map = mapRef.current;
-      if (mapViewMode === "3d") {
-        map.easeTo({ pitch: 60, bearing: -17, duration: 600 });
-      } else {
-        map.easeTo({ pitch: 0, bearing: 0, duration: 600 });
-      }
-    }, [mapViewMode, isMapLoaded, selectedBarangay]);
+      applyVisualState();
+    }, [mapViewMode, isMapLoaded, selectedParameter, selectedBarangay]);
 
     /* ───────────────────────── STYLE SWITCH ───────────────────────── */
     useEffect(() => {
@@ -384,7 +438,7 @@ const BaseMapv2 = memo(
         clickHandlerRef.current = null;
         await loadLayers();
 
-        applyCurrentParameterStyle();
+        applyVisualState();
       });
     }, [mapStyle]);
 

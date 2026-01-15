@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Typhoon Committee Area (TCA)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.0, 0.0],
+            [180.0, 0.0],
+            [180.0, 60.0],
+            [100.0, 60.0],
+            [100.0, 0.0]
+          ]
+        ]
+      }
+    }
+  ]
+}
