@@ -3,6 +3,7 @@ import Himawari from "@pages/admin/Himawari";
 import RainRadar from "@pages/admin/RainRadar";
 import RiskIntelligence from "@pages/admin/RiskIntelligence";
 import TestMap from "@pages/admin/TestMap";
+import TestOptimized from "@pages/admin/TestOptimized";
 import {
   ActivityIcon,
   Bell,
@@ -105,6 +106,14 @@ export const ADMIN_MODULES = [
     label: "Himawari",
     link: "/admin/himawari",
     element: <Himawari />,
+  },
+  {
+    type: "item",
+    icon: <Satellite />,
+    value: "testOptimized",
+    label: "Test Optimized",
+    link: "/admin/testOptimized",
+    element: <TestOptimized />,
   },
   // {
   //   type: "group",

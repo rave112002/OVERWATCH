@@ -1,9 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MAP_STYLES, MAP_OPTIONS } from "@constants/maps";
 import { Button, Radio } from "antd";
 import { MoonIcon, Satellite, Sun } from "lucide-react";
+
+const MOCK_POINTS = [
+  {
+    id: 1,
+    name: "Incident A",
+    lat: 8.2,
+    lon: 131.3,
+  },
+];
 
 const BaseMapLibre = ({
   center = [121.0, 14.6],
@@ -51,6 +61,52 @@ const BaseMapLibre = ({
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const addPointLayer = (map) => {
+    if (map.getSource("points")) return;
+
+    map.addSource("points", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    });
+
+    map.addLayer({
+      id: "points-layer",
+      type: "circle",
+      source: "points",
+      paint: {
+        "circle-radius": 7,
+        "circle-color": "#ff4d4f",
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#ffffff",
+      },
+    });
+  };
+
+  const loadPoints = (map, points) => {
+    const source = map.getSource("points");
+    if (!source) return;
+
+    const features = points.map((p) => ({
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [p.lon, p.lat],
+      },
+      properties: {
+        id: p.id,
+        name: p.name,
+      },
+    }));
+
+    source.setData({
+      type: "FeatureCollection",
+      features,
+    });
   };
 
   // Setup map only once
@@ -108,44 +164,44 @@ const BaseMapLibre = ({
           }
         });
 
-      // --- Taguig boundary and auto-zoom ---
-      fetch("/data/taguig.geojson")
+      // --- Taytay boundary and auto-zoom ---
+      fetch("/data/taytay.geojson")
         .then((res) => res.json())
         .then((geojson) => {
           if (!mapInstance.current) return;
-          if (!mapInstance.current.getSource("taguig-boundary")) {
-            mapInstance.current.addSource("taguig-boundary", {
+          if (!mapInstance.current.getSource("taytay-boundary")) {
+            mapInstance.current.addSource("taytay-boundary", {
               type: "geojson",
               data: geojson,
             });
           }
-          if (!mapInstance.current.getLayer("taguig-fill")) {
+          if (!mapInstance.current.getLayer("taytz`ay-fill")) {
             mapInstance.current.addLayer({
-              id: "taguig-fill",
+              id: "taytay-fill",
               type: "fill",
-              source: "taguig-boundary",
+              source: "taytay-boundary",
               paint: {
                 "fill-color": "#008000",
                 "fill-opacity": 0.3,
               },
             });
           }
-          if (!mapInstance.current.getLayer("taguig-border")) {
+          if (!mapInstance.current.getLayer("taytay-border")) {
             mapInstance.current.addLayer({
-              id: "taguig-border",
+              id: "taytay-border",
               type: "line",
-              source: "taguig-boundary",
+              source: "taytay-boundary",
               paint: {
                 "line-color": "#fff",
                 "line-width": 2.5,
               },
             });
           }
-          if (!mapInstance.current.getLayer("taguig-label")) {
+          if (!mapInstance.current.getLayer("taytay-label")) {
             mapInstance.current.addLayer({
-              id: "taguig-label",
+              id: "taytay-label",
               type: "symbol",
-              source: "taguig-boundary",
+              source: "taytay-boundary",
               layout: {
                 "text-field": ["get", "adm4_en"],
                 "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
@@ -160,6 +216,7 @@ const BaseMapLibre = ({
               },
             });
           }
+
           // --- Auto zoom to show all features ---
           const bounds = new maplibregl.LngLatBounds();
           const features =
@@ -181,6 +238,9 @@ const BaseMapLibre = ({
         });
 
       mapInstance.current.setRenderWorldCopies(false);
+
+      addPointLayer(mapInstance.current);
+      loadPoints(mapInstance.current, MOCK_POINTS);
 
       await addHimawari(mapInstance.current);
 
