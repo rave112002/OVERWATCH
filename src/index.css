@@ -1,5 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"); */
 @tailwind utilities;
+
+@font-face {
+  font-family: "Satoshi";
+  src:
+    url("./assets/fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @import "tailwindcss";
 /* @tailwind base;
@@ -11,13 +21,20 @@
 @theme {
   /* --color-header: #308a4e; */
   --color-b-primary: #004aad;
-  --color-b-secondary: #00696e:
+  --color-b-secondary: #00696e;
+  --color-b-header: #111827;
+
+  --font-sans: "Satoshi", sans-serif;
+}
+
+* {
+  font-family: "Satoshi" !important;
 }
 
 /* Root styles */
 :root {
   color-scheme: light;
-  font-family: "Poppins", sans-serif;
+  font-family: "Satoshi", sans-serif;
   background-color: #ffffff;
   color: #111827;
 }
@@ -29,6 +46,7 @@ body {
   width: 100%;
   min-height: 100vh;
   font-family: inherit;
+  letter-spacing: 0.05rem;
   background-color: inherit;
   color: inherit;
   -webkit-font-smoothing: antialiased;
@@ -56,44 +74,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 2px; /* space between icon and text */
+  margin-right: 2px;
   min-width: 22px;
   min-height: 22px;
 }
 
 /* basemap control */
-.maplibregl-ctrl-top-right {
-  top: 4.5rem !important;        
-  right: 0.5rem !important;       
-  bottom: auto !important;
+.maplibregl-ctrl-bottom-right {
+  top: auto !important;
+  right: 0.5rem !important;
+  bottom: 0.5rem !important;
   left: auto !important;
 }
 .mapboxgl-canvas {
   pointer-events: auto;
 }
 
-.maplibregl-ctrl-top-right .maplibregl-ctrl,
-.maplibregl-ctrl-top-right .maplibregl-ctrl-group {
-  background: rgba(255,255,255,0.4);
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl,
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-group {
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
   border-radius: 0.5rem;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.05);
   z-index: 10;
-  padding: 0.5rem;
-  width: 50px;
+  padding: 0px;
+  width: 33px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-clip: padding-box;
+  overflow: hidden;
 }
 
 /* map options control */
 .vertical-radio-group .ant-radio-button-wrapper {
   display: block;
   width: 100%;
-  border-radius: 0px !important;  
-  background: rgba(255,255,255,0.4);
+  border-radius: 0px !important;
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(6px);
   border: none !important;
   margin: 0 !important;
@@ -110,7 +131,7 @@ body {
 }
 
 .vertical-radio-group .ant-radio-button-wrapper:not(:first-child)::before {
-  display: none !important;  
+  display: none !important;
 }
 
 .vertical-radio-group .ant-radio-group {
@@ -121,6 +142,35 @@ body {
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
-  gap: 0 !important;  /* Remove any gaps between buttons */
+  gap: 0 !important; /* Remove any gaps between buttons */
 }
 
+/* Hide scrollbar but keep scroll */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Mac-style overlay scrollbar, fade-in on hover */
+.menu-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  transition: opacity 0.3s ease;
+  opacity: 0; /* hidden by default */
+}
+
+.menu-scrollbar:hover::-webkit-scrollbar {
+  opacity: 1; /* show on hover */
+}
+
+.menu-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+}
+
+.menu-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}

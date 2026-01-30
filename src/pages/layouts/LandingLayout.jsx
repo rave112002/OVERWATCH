@@ -74,7 +74,7 @@ const LandingLayout = ({ admin = false }) => {
           <img src={headerLogo} alt="Overwatch Logo" className="h-12" />
           {/* {admin && <div className="text-white text-base">Admin</div>} */}
           <Button type="link" onClick={() => navigate("/admin/dashboard")}>
-            <span className="text-lg text-white/90 font-medium hover:text-gray-300">
+            <span className="text-lg text-white/90 font-semibold hover:text-gray-300">
               Admin
             </span>
           </Button>

@@ -8,6 +8,12 @@ export const MAP_STYLES = {
   dark: `https://api.maptiler.com/maps/019abfaa-a3df-7750-9413-2d94e96af2f4/style.json?key=${MAPTILER_KEY}`,
 };
 
+export const STYLES_URLS = [
+  MAP_STYLES.light,
+  MAP_STYLES.dark,
+  MAP_STYLES.satellite,
+];
+
 export const MAP_OPTIONS = [
   {
     label: (

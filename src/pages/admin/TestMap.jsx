@@ -31,7 +31,7 @@ const TestMap = () => {
 
       if (parameter === "weather") {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Asia/Manila`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Asia/Manila`,
         );
         const data = await response.json();
 
@@ -53,7 +53,7 @@ const TestMap = () => {
         });
       } else if (parameter === "pm") {
         const response = await fetch(
-          `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm2_5&timezone=Asia/Manila`
+          `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm2_5&timezone=Asia/Manila`,
         );
         const data = await response.json();
 
@@ -64,7 +64,7 @@ const TestMap = () => {
         });
       } else if (parameter === "elevation") {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`
+          `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`,
         );
         const data = await response.json();
 
@@ -75,7 +75,7 @@ const TestMap = () => {
         });
       } else {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Asia/Manila`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=Asia/Manila`,
         );
         const data = await response.json();
 
@@ -109,8 +109,7 @@ const TestMap = () => {
           lon: selectedBarangay.lon,
           name: selectedBarangay.barangayName,
         }
-      : { lat: 14.5176, lon: 121.0509, name: "Taguig City" };
-
+      : { lat: 14.552740670846099, lon: 121.13040374776895, name: "Taytay" };
     fetchParameterData(location, selectedParameter);
   }, [selectedParameter, selectedBarangay, fetchParameterData]);
 
@@ -157,12 +156,12 @@ const TestMap = () => {
 
     const displayLocationName = selectedBarangay
       ? selectedBarangay.barangayName
-      : "Taguig City";
+      : "Taytay";
 
     const locationInfo = {
       barangayName: displayLocationName,
-      lat: selectedBarangay ? selectedBarangay.lat : 14.5176,
-      lon: selectedBarangay ? selectedBarangay.lon : 121.0509,
+      lat: selectedBarangay ? selectedBarangay.lat : 14.552740670846099,
+      lon: selectedBarangay ? selectedBarangay.lon : 121.13040374776895,
       psgc: selectedBarangay ? selectedBarangay.psgc : null,
     };
 
@@ -321,7 +320,7 @@ const TestMap = () => {
         enableBarangayHighlight={true}
       >
         {/* Desktop - Right side */}
-        <div className="hidden md:block absolute top-100 right-5 rounded-lg max-w-xs z-50 pointer-events-auto">
+        <div className="hidden md:block absolute top-24 left-5 rounded-lg max-w-xs z-50 pointer-events-auto">
           <TranslucentCard className="flex flex-col py-1">
             <h1 className="font-semibold text-2xl text-right pr-4 mb-2">
               PARAMETERS
@@ -359,7 +358,7 @@ const TestMap = () => {
         </div>
 
         {/* Always show parameter data modal */}
-        <div className="absolute top-20 right-20 w-80 z-50 pointer-events-auto">
+        <div className="absolute top-24 right-20 w-80 z-50 pointer-events-auto">
           <TranslucentCard className="p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold text-lg flex items-center gap-2">

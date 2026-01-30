@@ -32,7 +32,7 @@ const Public = () => {
                   <div className=" w-3/5 justify-end items-center flex">
                     {CURRENT_WEATHER.icon}
                   </div>
-                  <div className=" w-2/5 flex flex-col justify-center">
+                  <div className="will experience cloudy skies with scattered rains and isolated thunderstorms caused by Shear Line. Possible flash floods or landslides due to moderate w-2/5 flex flex-col justify-center">
                     <span className="text-3xl font-semibold">
                       {CURRENT_WEATHER.temperature}
                     </span>

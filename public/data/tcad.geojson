@@ -4,19 +4,17 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Philippine Area of Responsibility (PAR)"
+        "name": "Tropical Cyclone Advisory Domain (TCAD)"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [115, 5],
-            [115, 15],
-            [120, 21],
-            [120, 25],
-            [135, 25],
-            [135, 5],
-            [115, 5]
+            [114, 4],
+            [114, 27],
+            [145, 27],
+            [145, 4],
+            [114, 4]
           ]
         ]
       }
@@ -24,14 +22,12 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "PAR Centroid"
+        "name": "TCAD Centroid"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [125.04, 15.67]
+        "coordinates": [129.5, 15.5]
       }
     }
   ]
 }
-
-

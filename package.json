@@ -20,6 +20,7 @@
     "dayjs": "^1.11.19",
     "lucide-react": "^0.552.0",
     "maplibre-gl": "^5.14.0",
+    "motion": "^12.27.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router": "^7.9.5",

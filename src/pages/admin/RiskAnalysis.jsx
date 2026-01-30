@@ -20,7 +20,7 @@ import { useMapStyle } from "@helpers/useMapStyle";
 import TranslucentCard from "@components/cards/TranslucentCard";
 import BaseMapLibre from "@components/BaseMapLibre";
 
-const RiskIntelligence = () => {
+const RiskAnalysis = () => {
   const mapRef = useRef(null);
   const layersRef = useRef({});
   const [active, setActive] = useState(null);
@@ -158,4 +158,4 @@ const RiskIntelligence = () => {
   );
 };
 
-export default RiskIntelligence;
+export default RiskAnalysis;

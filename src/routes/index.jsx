@@ -3,13 +3,13 @@ import LandingLayout from "@pages/layouts/LandingLayout";
 // import Login from "@pages/Login";
 import { ADMIN_MODULES } from "@constants/menu";
 import Public from "@pages/Public";
+import LandingLayoutRevised from "@pages/layouts/LandingLayoutRevised";
+import PublicV2 from "@pages/PublicV2";
 
 const NotFound = () => (
   <div className="h-dvh bg-header flex flex-col items-center justify-center">
-    <span className="text-5xl font-bold text-white text-shadow-lg/30">
-      404 - Page Not Found
-    </span>
-    <p className="text-white mt-2">Return to home using the menu.</p>
+    <span className="text-5xl font-bold text-black ">404 - Page Not Found</span>
+    <p className="text-black mt-2">Return to home using the menu.</p>
   </div>
 );
 
@@ -38,12 +38,16 @@ const Routers = () => {
       {/* <Route path="/" element={<Public />} /> */}
 
       {/* Default route */}
+      {/* <Route element={<LandingLayoutRevised />}>
+        <Route path="/" element={<PublicV2 />} />
+      </Route> */}
+
       <Route element={<LandingLayout />}>
         <Route path="/" element={<Public />} />
       </Route>
 
       {/* Admin route inside layout */}
-      <Route element={<LandingLayout admin={true} />}>
+      <Route element={<LandingLayoutRevised admin={true} />}>
         {routes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}

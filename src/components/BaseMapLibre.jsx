@@ -10,8 +10,8 @@ const MOCK_POINTS = [
   {
     id: 1,
     name: "Incident A",
-    lat: 8.2,
-    lon: 131.3,
+    lat: 14.552719901605142,
+    lon: 121.13043593427568,
   },
 ];
 
@@ -36,7 +36,7 @@ const BaseMapLibre = ({
   const addHimawari = async (map) => {
     try {
       const blobUrl = await fetchImageAsBlobUrl(
-        "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/se2_snd_0230.jpg"
+        "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/se2_snd_0230.jpg",
       );
 
       if (!map.getSource("himawari-imagery")) {
@@ -123,7 +123,7 @@ const BaseMapLibre = ({
 
     mapInstance.current.addControl(
       new maplibregl.NavigationControl(),
-      "top-right"
+      "top-right",
     );
 
     // mapInstance.current.addControl(new maplibregl.GlobeControl(), "top-right");
@@ -175,7 +175,7 @@ const BaseMapLibre = ({
               data: geojson,
             });
           }
-          if (!mapInstance.current.getLayer("taytz`ay-fill")) {
+          if (!mapInstance.current.getLayer("taytay-fill")) {
             mapInstance.current.addLayer({
               id: "taytay-fill",
               type: "fill",
@@ -224,7 +224,7 @@ const BaseMapLibre = ({
           features.forEach((f) => {
             if (f.geometry?.type === "Polygon") {
               f.geometry.coordinates[0].forEach(([lon, lat]) =>
-                bounds.extend([lon, lat])
+                bounds.extend([lon, lat]),
               );
             } else if (f.geometry?.type === "MultiPolygon") {
               f.geometry.coordinates
@@ -267,7 +267,7 @@ const BaseMapLibre = ({
         map.setLayoutProperty(
           "taguig-label",
           "visibility",
-          zoom > 10 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none",
         );
       }
 
@@ -276,7 +276,7 @@ const BaseMapLibre = ({
         map.setLayoutProperty(
           "taguig-border",
           "visibility",
-          zoom > 8 ? "visible" : "none"
+          zoom > 8 ? "visible" : "none",
         );
       }
 
@@ -285,7 +285,7 @@ const BaseMapLibre = ({
         map.setLayoutProperty(
           "taguig-fill",
           "visibility",
-          zoom > 8 ? "visible" : "none"
+          zoom > 8 ? "visible" : "none",
         );
       }
     };
@@ -299,22 +299,22 @@ const BaseMapLibre = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (mapInstance.current) {
-      const map = mapInstance.current;
+  // useEffect(() => {
+  //   if (mapInstance.current) {
+  //     const map = mapInstance.current;
 
-      const logZoom = () => {
-        console.log("Zoom level:", map.getZoom());
-      };
+  //     const logZoom = () => {
+  //       console.log("Zoom level:", map.getZoom());
+  //     };
 
-      map.on("zoom", logZoom);
+  //     map.on("zoom", logZoom);
 
-      // Cleanup
-      return () => {
-        map.off("zoom", logZoom);
-      };
-    }
-  }, []);
+  //     // Cleanup
+  //     return () => {
+  //       map.off("zoom", logZoom);
+  //     };
+  //   }
+  // }, []);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>

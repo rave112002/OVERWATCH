@@ -60,23 +60,23 @@ const BaseMapv2 = memo(
       const map = mapRef.current;
       if (!map) return;
 
-      fetch("/data/taguig.geojson")
+      fetch("/data/taytay.geojson")
         .then((res) => res.json())
         .then((geojson) => {
           geoJSONRef.current = geojson;
 
-          if (!map.getSource("taguig")) {
-            map.addSource("taguig", {
+          if (!map.getSource("taytay")) {
+            map.addSource("taytay", {
               type: "geojson",
               data: geojson,
             });
           }
 
-          if (!map.getLayer("taguig-fill")) {
+          if (!map.getLayer("taytay-fill")) {
             map.addLayer({
-              id: "taguig-fill",
+              id: "taytay-fill",
               type: "fill-extrusion",
-              source: "taguig",
+              source: "taytay",
               paint: {
                 "fill-extrusion-color": "#004aad",
                 "fill-extrusion-opacity": 0.3,
@@ -86,7 +86,7 @@ const BaseMapv2 = memo(
           }
 
           map.setPaintProperty(
-            "taguig-fill",
+            "taytay-fill",
             "fill-extrusion-height-transition",
             {
               duration: 500,
@@ -94,11 +94,11 @@ const BaseMapv2 = memo(
             }
           );
 
-          if (!map.getLayer("taguig-border")) {
+          if (!map.getLayer("taytay-border")) {
             map.addLayer({
-              id: "taguig-border",
+              id: "taytay-border",
               type: "line",
-              source: "taguig",
+              source: "taytay",
               paint: {
                 "line-color": "#ffffff",
                 "line-width": 2,
@@ -106,11 +106,11 @@ const BaseMapv2 = memo(
             });
           }
 
-          if (!map.getLayer("taguig-label")) {
+          if (!map.getLayer("taytay-label")) {
             map.addLayer({
-              id: "taguig-label",
+              id: "taytay-label",
               type: "symbol",
-              source: "taguig",
+              source: "taytay",
               layout: {
                 "text-field": ["get", "adm4_en"],
                 "text-size": 12,
@@ -174,7 +174,7 @@ const BaseMapv2 = memo(
       };
 
       clickHandlerRef.current = handleClick;
-      mapRef.current.on("click", "taguig-fill", handleClick);
+      mapRef.current.on("click", "taytay-fill", handleClick);
     };
 
     /* ───────────────────────── HIGHLIGHT EFFECT ───────────────────────── */
@@ -182,7 +182,7 @@ const BaseMapv2 = memo(
       if (!mapRef.current || !isMapLoaded) return;
 
       const map = mapRef.current;
-      const layer = "taguig-fill";
+      const layer = "taytay-fill";
       const psgc = selectedBarangay?.psgc ?? null;
 
       /* 🎯 HEIGHT RULES */

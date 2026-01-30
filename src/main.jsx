@@ -14,9 +14,9 @@ const queryClient = new QueryClient({
   },
 });
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js");
-}
+// if ("serviceWorker" in navigator) {
+//   navigator.serviceWorker.register("/sw.js");
+// }
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -30,18 +30,26 @@ createRoot(document.getElementById("root")).render(
             // colorBorder: "#d1d5db",
             // colorBgContainer: "#f3f4f6",
             borderRadius: 8,
-            fontFamily: "Poppins, sans-serif",
+            fontFamily: "Satoshi, sans-serif",
           },
           components: {
             Menu: {
-              colorBgContainer: "#ffffff",
-              itemSelectedBg: "rgba(0, 74, 173, 0.5)",
-              itemSelectedColor: "#ffffff",
-              itemMarginInline: 5,
-              // collapsedWidth: 10,
+              colorBgContainer: "transparent",
+              itemColor: "#ffffff",
+              horizontalItemSelectedColor: "#60A5FA",
+              horizontalItemHoverColor: "#60A5FA",
+
+              // submenu popup (dropdown)
+              popupBg: "#0b1220", // background of the dropdown panel
+              subMenuItemBg: "#0b1220", // background behind submenu items
+              itemHoverBg: "rgba(96,165,250,0.12)",
+              itemSelectedBg: "rgba(96,165,250,0.20)",
+              itemHoverColor: "#60A5FA",
+              itemSelectedColor: "#60A5FA",
             },
             Radio: {
-              colorPrimary: "rgb(0, 74, 173, 0.3)",
+              buttonBg: "transparent",
+              buttonColor: "#ffffff",
             },
           },
         }}
@@ -51,5 +59,5 @@ createRoot(document.getElementById("root")).render(
         </AntApp>
       </ConfigProvider>
     </QueryClientProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
