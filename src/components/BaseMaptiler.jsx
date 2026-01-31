@@ -74,76 +74,76 @@ const BaseMaptiler = ({
         });
 
       // --- Taguig boundary and auto-zoom ---
-      fetch("/data/taguig.geojson")
-        .then((res) => res.json())
-        .then((geojson) => {
-          if (!mapInstance.current) return;
-          if (!mapInstance.current.getSource("taguig-boundary")) {
-            mapInstance.current.addSource("taguig-boundary", {
-              type: "geojson",
-              data: geojson,
-            });
-          }
-          if (!mapInstance.current.getLayer("taguig-fill")) {
-            mapInstance.current.addLayer({
-              id: "taguig-fill",
-              type: "fill",
-              source: "taguig-boundary",
-              paint: {
-                "fill-color": "#008000",
-                "fill-opacity": 0.3,
-              },
-            });
-          }
-          if (!mapInstance.current.getLayer("taguig-border")) {
-            mapInstance.current.addLayer({
-              id: "taguig-border",
-              type: "line",
-              source: "taguig-boundary",
-              paint: {
-                "line-color": "#fff",
-                "line-width": 2.5,
-              },
-            });
-          }
-          if (!mapInstance.current.getLayer("taguig-label")) {
-            mapInstance.current.addLayer({
-              id: "taguig-label",
-              type: "symbol",
-              source: "taguig-boundary",
-              layout: {
-                "text-field": ["get", "adm4_en"],
-                "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
-                "text-size": 12,
-                "text-anchor": "center",
-                "text-allow-overlap": false,
-              },
-              paint: {
-                "text-color": "#000",
-                "text-halo-color": "#ffffff",
-                "text-halo-width": 2,
-              },
-            });
-          }
-          // --- Auto zoom to show all features ---
-          const bounds = new LngLatBounds();
-          const features =
-            geojson.type === "FeatureCollection" ? geojson.features : [geojson];
-          features.forEach((f) => {
-            if (f.geometry?.type === "Polygon") {
-              f.geometry.coordinates[0].forEach(([lon, lat]) =>
-                bounds.extend([lon, lat]),
-              );
-            } else if (f.geometry?.type === "MultiPolygon") {
-              f.geometry.coordinates
-                .flat(2)
-                .forEach(([lon, lat]) => bounds.extend([lon, lat]));
-            }
-          });
-          if (!bounds.isEmpty()) {
-            mapInstance.current.fitBounds(bounds, { padding: 40 });
-          }
-        });
+      // fetch("/data/taguig.geojson")
+      //   .then((res) => res.json())
+      //   .then((geojson) => {
+      //     if (!mapInstance.current) return;
+      //     if (!mapInstance.current.getSource("taguig-boundary")) {
+      //       mapInstance.current.addSource("taguig-boundary", {
+      //         type: "geojson",
+      //         data: geojson,
+      //       });
+      //     }
+      //     if (!mapInstance.current.getLayer("taguig-fill")) {
+      //       mapInstance.current.addLayer({
+      //         id: "taguig-fill",
+      //         type: "fill",
+      //         source: "taguig-boundary",
+      //         paint: {
+      //           "fill-color": "#008000",
+      //           "fill-opacity": 0.3,
+      //         },
+      //       });
+      //     }
+      //     if (!mapInstance.current.getLayer("taguig-border")) {
+      //       mapInstance.current.addLayer({
+      //         id: "taguig-border",
+      //         type: "line",
+      //         source: "taguig-boundary",
+      //         paint: {
+      //           "line-color": "#fff",
+      //           "line-width": 2.5,
+      //         },
+      //       });
+      //     }
+      //     if (!mapInstance.current.getLayer("taguig-label")) {
+      //       mapInstance.current.addLayer({
+      //         id: "taguig-label",
+      //         type: "symbol",
+      //         source: "taguig-boundary",
+      //         layout: {
+      //           "text-field": ["get", "adm4_en"],
+      //           "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+      //           "text-size": 12,
+      //           "text-anchor": "center",
+      //           "text-allow-overlap": false,
+      //         },
+      //         paint: {
+      //           "text-color": "#000",
+      //           "text-halo-color": "#ffffff",
+      //           "text-halo-width": 2,
+      //         },
+      //       });
+      //     }
+      //     // --- Auto zoom to show all features ---
+      //     // const bounds = new LngLatBounds();
+      //     // const features =
+      //     //   geojson.type === "FeatureCollection" ? geojson.features : [geojson];
+      //     // features.forEach((f) => {
+      //     //   if (f.geometry?.type === "Polygon") {
+      //     //     f.geometry.coordinates[0].forEach(([lon, lat]) =>
+      //     //       bounds.extend([lon, lat]),
+      //     //     );
+      //     //   } else if (f.geometry?.type === "MultiPolygon") {
+      //     //     f.geometry.coordinates
+      //     //       .flat(2)
+      //     //       .forEach(([lon, lat]) => bounds.extend([lon, lat]));
+      //     //   }
+      //     // });
+      //     // if (!bounds.isEmpty()) {
+      //     //   mapInstance.current.fitBounds(bounds, { padding: 40 });
+      //     // }
+      //   });
       mapInstance.current.setRenderWorldCopies(false);
       onMapLoad(mapInstance.current);
     });

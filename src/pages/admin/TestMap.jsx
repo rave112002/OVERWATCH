@@ -322,7 +322,7 @@ const TestMap = () => {
       >
         {/* Desktop - Right side */}
         <div className="hidden md:block absolute top-5 left-5 rounded-lg max-w-xs z-50 pointer-events-auto">
-          <DarkTranslucent className="flex flex-col py-1">
+          <DarkTranslucent className="flex flex-col py-1 text-white">
             <h1 className="font-semibold text-2xl text-right pr-4 mb-2">
               PARAMETERS
             </h1>
@@ -343,7 +343,7 @@ const TestMap = () => {
                         }
                       : {}
                   }
-                  className={`py-5 flex justify-end items-center w-full transition-all duration-200 ${
+                  className={`py-5 flex justify-end items-center w-full transition-all duration-200 text-white ${
                     isSelected
                       ? "bg-blue-600! text-white! hover:bg-blue-700!"
                       : "hover:bg-gray-100"

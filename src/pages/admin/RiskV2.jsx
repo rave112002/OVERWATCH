@@ -33,7 +33,7 @@ const RiskV2 = () => {
           defaultActiveKey="riskmap"
           items={items}
           onChange={onChange}
-          className="text-white flex-1 flex flex-col"
+          className=" flex-1 flex flex-col"
         />
       </div>
     </div>
