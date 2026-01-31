@@ -80,7 +80,7 @@ body {
 }
 
 /* basemap control */
-.maplibregl-ctrl-bottom-right {
+/* .maplibregl-ctrl-bottom-right {
   top: auto !important;
   right: 0.5rem !important;
   bottom: 0.5rem !important;
@@ -107,7 +107,7 @@ body {
   justify-content: center;
   background-clip: padding-box;
   overflow: hidden;
-}
+} */
 
 /* map options control */
 .vertical-radio-group .ant-radio-button-wrapper {

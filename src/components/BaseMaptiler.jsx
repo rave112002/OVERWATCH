@@ -31,6 +31,7 @@ const BaseMaptiler = ({
       center,
       zoom,
       navigationControl: false,
+      attributionControl: false,
     });
 
     mapInstance.current.addControl(new NavigationControl(), "top-right");
