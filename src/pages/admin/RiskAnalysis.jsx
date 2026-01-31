@@ -18,9 +18,8 @@ import {
 } from "@maptiler/weather";
 import { useMapStyle } from "@helpers/useMapStyle";
 import TranslucentCard from "@components/cards/TranslucentCard";
-import BaseMapLibre from "@components/BaseMapLibre";
 
-const RiskAnalysis = () => {
+const RiskIntelligence = () => {
   const mapRef = useRef(null);
   const layersRef = useRef({});
   const [active, setActive] = useState(null);
@@ -96,8 +95,8 @@ const RiskAnalysis = () => {
   };
 
   return (
-    <div className="w-full h-full relative">
-      <BaseMapLibre center={[121, 14.6]} zoom={4} onMapLoad={onMapLoad} />
+    <div className="w-full h-[calc(100vh-180px)] relative">
+      <BaseMaptiler center={[121, 14.6]} zoom={4} onMapLoad={onMapLoad} />
 
       <div className="absolute top-95 right-4 bg-white/40 rounded-lg">
         <TranslucentCard className="p-0">
@@ -158,4 +157,4 @@ const RiskAnalysis = () => {
   );
 };
 
-export default RiskAnalysis;
+export default RiskIntelligence;

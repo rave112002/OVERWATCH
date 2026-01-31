@@ -2,6 +2,7 @@ import Dashboard from "@pages/admin/Dashboard";
 import Himawari from "@pages/admin/Himawari";
 import RiskAnalysis from "@pages/admin/RiskAnalysis";
 import RiskV2 from "@pages/admin/RiskV2";
+import Sensors from "@pages/admin/Sensors";
 import TestMap from "@pages/admin/TestMap";
 import Typhoons from "@pages/admin/Typhoons";
 import {
@@ -89,65 +90,65 @@ export const ADMIN_MODULES = [
     value: "sensors",
     label: "Sensors",
     link: "/admin/sensors",
-    // element: <SecondPage />,
+    element: <Sensors />,
   },
-  {
-    type: "item",
-    // icon: FileChartColumn,
-    value: "reports",
-    label: "Reports",
-    link: "/admin/reports",
-    // element: <Reports />,
-  },
-  {
-    type: "item",
-    // icon: Siren,
-    value: "alerts",
-    label: "Alerts",
-    link: "/admin/alerts",
-    // element: <SecondPage />,
-  },
-  {
-    type: "item",
-    // icon: History,
-    value: "history",
-    label: "History",
-    link: "/admin/history",
-    // element: <History />,
-  },
-  {
-    type: "item",
-    // icon: CircleUser,
-    value: "Admin",
-    label: "Admin",
-    link: "/admin/Admin",
-    // element: <SecondPage />,
-  },
+  // {
+  //   type: "item",
+  //   // icon: FileChartColumn,
+  //   value: "reports",
+  //   label: "Reports",
+  //   link: "/admin/reports",
+  //   // element: <Reports />,
+  // },
+  // {
+  //   type: "item",
+  //   // icon: Siren,
+  //   value: "alerts",
+  //   label: "Alerts",
+  //   link: "/admin/alerts",
+  //   // element: <SecondPage />,
+  // },
+  // {
+  //   type: "item",
+  //   // icon: History,
+  //   value: "history",
+  //   label: "History",
+  //   link: "/admin/history",
+  //   // element: <History />,
+  // },
+  // {
+  //   type: "item",
+  //   // icon: CircleUser,
+  //   value: "Admin",
+  //   label: "Admin",
+  //   link: "/admin/Admin",
+  //   // element: <SecondPage />,
+  // },
 
-  {
-    type: "item",
-    // icon: ActivityIcon,
-    value: "test-map",
-    label: "Test Map",
-    link: "/admin/test-map",
-    element: <TestMap />,
-  },
-  {
-    type: "item",
-    // icon: Satellite,
-    value: "himawari",
-    label: "Himawari",
-    link: "/admin/himawari",
-    element: <Himawari />,
-  },
-  {
-    type: "item",
-    // icon: TestTubes,
-    value: "sandBox",
-    label: "SandBox",
-    link: "/admin/sandBox",
-    // element: <SandBox />,
-  },
+  // {
+  //   type: "item",
+  //   // icon: ActivityIcon,
+  //   value: "test-map",
+  //   label: "Test Map",
+  //   link: "/admin/test-map",
+  //   element: <TestMap />,
+  // },
+  // {
+  //   type: "item",
+  //   // icon: Satellite,
+  //   value: "himawari",
+  //   label: "Himawari",
+  //   link: "/admin/himawari",
+  //   element: <Himawari />,
+  // },
+  // {
+  //   type: "item",
+  //   // icon: TestTubes,
+  //   value: "sandBox",
+  //   label: "SandBox",
+  //   link: "/admin/sandBox",
+  //   // element: <SandBox />,
+  // },
 
   // {
   //   type: "group",

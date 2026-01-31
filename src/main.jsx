@@ -51,6 +51,11 @@ createRoot(document.getElementById("root")).render(
               buttonBg: "transparent",
               buttonColor: "#ffffff",
             },
+            Tabs: {
+              itemColor: "#ffffff",
+              itemSelectedColor: "#1890ff",
+              inkBarColor: "#1890ff",
+            },
           },
         }}
       >

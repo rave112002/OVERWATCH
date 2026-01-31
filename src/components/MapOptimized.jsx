@@ -87,31 +87,31 @@ const MapOptimized = ({
       map.remove();
       mapInstanceRef.current = null;
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
-  // useEffect(() => {
-  //   const map = mapRef.current;
-  //   if (!map) return;
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
 
-  //   const onStyleLoad = async () => {
-  //     // await addLineLayer({
-  //     //   map,
-  //     //   id: "tcad",
-  //     //   data: "/data/tcad.geojson",
-  //     //   color: "#808080",
-  //     //   width: 1,
-  //     // });
-  //     await addPAR(map);
-  //     await addLGUBoundary({ map, id: lguID, autoZoom: false });
-  //   };
+    const onStyleLoad = async () => {
+      // await addLineLayer({
+      //   map,
+      //   id: "tcad",
+      //   data: "/data/tcad.geojson",
+      //   color: "#808080",
+      //   width: 1,
+      // });
+      await addPAR(map);
+      await addLGUBoundary({ map, id: lguID, autoZoom: false });
+    };
 
-  //   map.once("styledata", onStyleLoad);
-  //   map.setStyle(STYLES_URLS[style]);
+    map.once("styledata", onStyleLoad);
+    map.setStyle(STYLES_URLS[style]);
 
-  //   return () => {
-  //     map.off("styledata", onStyleLoad);
-  //   };
-  // }, [style]);
+    return () => {
+      map.off("styledata", onStyleLoad);
+    };
+  }, [style]);
 
   // useEffect(() => {
   //   const map = mapRef.current;

@@ -1,5 +1,9 @@
 import { Radio, Tabs } from "antd";
 import React from "react";
+import RiskMap from "./Risk/RiskMap";
+import Dashboard from "./Dashboard";
+import RiskAnalysis from "./RiskAnalysis";
+import TestMap from "./TestMap";
 
 const RiskV2 = () => {
   const onChange = (key) => {
@@ -7,25 +11,30 @@ const RiskV2 = () => {
   };
   const items = [
     {
-      key: "1",
-      label: "Tab 1",
-      children: "Content of Tab Pane 1",
+      key: "riskmap",
+      label: "Risk Map",
+      children: <RiskMap />,
     },
     {
-      key: "2",
-      label: "Tab 2",
-      children: "Content of Tab Pane 2",
+      key: "localanalysis",
+      label: "Local Analysis",
+      children: <TestMap />,
     },
     {
-      key: "3",
-      label: "Tab 3",
-      children: "Content of Tab Pane 3",
+      key: "nationalanalysis",
+      label: "National Analysis",
+      children: <RiskAnalysis />,
     },
   ];
   return (
-    <div className="w-full pt-20">
-      <div className="px-8 py-4">
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+    <div className="w-full h-full pt-20 flex flex-col">
+      <div className="px-8 py-4 flex-1 flex flex-col">
+        <Tabs
+          defaultActiveKey="riskmap"
+          items={items}
+          onChange={onChange}
+          className="text-white flex-1 flex flex-col"
+        />
       </div>
     </div>
   );

@@ -40,8 +40,10 @@ const BaseMapv2 = memo(
 
       mapRef.current.addControl(
         new maplibregl.NavigationControl(),
-        "top-right"
+        "top-right",
       );
+
+      mapRef.current.setRenderWorldCopies(false);
 
       mapRef.current.on("load", () => {
         loadLayers();
@@ -91,7 +93,7 @@ const BaseMapv2 = memo(
             {
               duration: 500,
               delay: 0,
-            }
+            },
           );
 
           if (!map.getLayer("taytay-border")) {
@@ -147,7 +149,7 @@ const BaseMapv2 = memo(
 
         const geojson = geoJSONRef.current;
         const fullFeature = geojson.features.find(
-          (f) => f.properties.adm4_psgc === psgc
+          (f) => f.properties.adm4_psgc === psgc,
         );
         if (!fullFeature) return;
 
@@ -162,7 +164,7 @@ const BaseMapv2 = memo(
             acc.lat += lat;
             return acc;
           },
-          { lon: 0, lat: 0 }
+          { lon: 0, lat: 0 },
         );
 
         onBarangayClick?.({
@@ -290,7 +292,7 @@ const BaseMapv2 = memo(
 
         if (f.geometry.type === "Polygon") {
           f.geometry.coordinates[0].forEach(([lon, lat]) =>
-            bounds.extend([lon, lat])
+            bounds.extend([lon, lat]),
           );
         }
 
@@ -337,7 +339,7 @@ const BaseMapv2 = memo(
         {children}
       </div>
     );
-  }
+  },
 );
 
 export default BaseMapv2;

@@ -132,7 +132,7 @@ const BaseMaptiler = ({
           features.forEach((f) => {
             if (f.geometry?.type === "Polygon") {
               f.geometry.coordinates[0].forEach(([lon, lat]) =>
-                bounds.extend([lon, lat])
+                bounds.extend([lon, lat]),
               );
             } else if (f.geometry?.type === "MultiPolygon") {
               f.geometry.coordinates
@@ -144,7 +144,7 @@ const BaseMaptiler = ({
             mapInstance.current.fitBounds(bounds, { padding: 40 });
           }
         });
-
+      mapInstance.current.setRenderWorldCopies(false);
       onMapLoad(mapInstance.current);
     });
 
@@ -179,7 +179,7 @@ const BaseMaptiler = ({
         map.setLayoutProperty(
           "taguig-label",
           "visibility",
-          zoom > 10 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none",
         );
       }
 
@@ -188,7 +188,7 @@ const BaseMaptiler = ({
         map.setLayoutProperty(
           "taguig-border",
           "visibility",
-          zoom > 10 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none",
         );
       }
 
@@ -197,7 +197,7 @@ const BaseMaptiler = ({
         map.setLayoutProperty(
           "taguig-fill",
           "visibility",
-          zoom > 10 ? "visible" : "none"
+          zoom > 10 ? "visible" : "none",
         );
       }
     };

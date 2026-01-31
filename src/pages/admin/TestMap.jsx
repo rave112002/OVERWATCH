@@ -16,6 +16,7 @@ import RainModal from "@components/Modal/RainModal";
 import TemperatureModal from "@components/Modal/TemperatureModal";
 import WindModal from "@components/Modal/WindModal";
 import HeatIndexLegend from "@components/Legend/HeatIndexLegend";
+import DarkTranslucent from "@components/cards/DarkTranslucent";
 
 const TestMap = () => {
   const mapRef = useRef(null);
@@ -308,7 +309,7 @@ const TestMap = () => {
   const Icon = getParameterIcon();
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[calc(100vh-180px)]">
       <BaseMapv2
         center={[121, 14.6]}
         zoom={3}
@@ -320,8 +321,8 @@ const TestMap = () => {
         enableBarangayHighlight={true}
       >
         {/* Desktop - Right side */}
-        <div className="hidden md:block absolute top-24 left-5 rounded-lg max-w-xs z-50 pointer-events-auto">
-          <TranslucentCard className="flex flex-col py-1">
+        <div className="hidden md:block absolute top-5 left-5 rounded-lg max-w-xs z-50 pointer-events-auto">
+          <DarkTranslucent className="flex flex-col py-1">
             <h1 className="font-semibold text-2xl text-right pr-4 mb-2">
               PARAMETERS
             </h1>
@@ -354,7 +355,7 @@ const TestMap = () => {
                 </Button>
               );
             })}
-          </TranslucentCard>
+          </DarkTranslucent>
         </div>
 
         {/* Always show parameter data modal */}
